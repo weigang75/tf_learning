@@ -53,7 +53,7 @@ with tf.name_scope('train'):
 sess = tf.Session()  
 merged = tf.summary.merge_all()  
   
-writer = tf.summary.FileWriter("logs/", sess.graph)  
+writer = tf.summary.FileWriter("/root/PycharmProjects/logs/", sess.graph)
   
 init = tf.global_variables_initializer()  
 sess.run(init)  

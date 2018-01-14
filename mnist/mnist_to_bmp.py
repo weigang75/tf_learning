@@ -1,10 +1,10 @@
 import struct
 import numpy as np
 import matplotlib.pyplot as plt
-#import Image
+# import Image
 import PIL.Image as Image
 
-
+# 参考：http://blog.csdn.net/u010194274/article/details/50817999
 # 二进制的形式读入
 filename = '/root/PycharmProjects/test/MNIST_data/train-images-idx3-ubyte'
 # filename = '/root/PycharmProjects/test/MNIST_data/t10k-images-idx3-ubyte'
