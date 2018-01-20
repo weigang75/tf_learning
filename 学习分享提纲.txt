@@ -12,6 +12,8 @@
 三、Tensorflow
 1、tf简介
 2、Docker和debian的安装方法
+	1）jupyter notebook
+
 3、op概念，演示的过程中讲解
 	tf.constant
 	tf.placeholder("float", shape=[None, 784])
@@ -20,11 +22,13 @@
 	简单的机器算法的例子
 4、数字图片识别和使用（91%）
 
+5、tensorboard简介
+
 函数计算器网址：
 https://www.desmos.com/calculator
+6、训练模型保存
 
-
-5、多层卷积网络的softmax回归模型
+7、多层卷积网络的softmax回归模型
 	http://www.tensorfly.cn/tfdoc/tutorials/mnist_pros.html
 	1）占位符 
 	2）变量

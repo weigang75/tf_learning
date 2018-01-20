@@ -10,26 +10,26 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # ----------------------------------------------------------------------
-# log reduce_sum
-y = tf.constant(
-    [np.power(np.e, 2.0), np.power(np.e, 1.3)])  # tf.random_normal([1, 1], mean=0.0, stddev=1.0, dtype=tf.float32)
-y_ = tf.constant(
-    [np.power(np.e, 2.3), np.power(np.e, 1.0)])  # tf.random_normal([1, 1], mean=0.0, stddev=1.0, dtype=tf.float32)
-
-# print('np.log(np.e)=', np.log(np.e*np.e))
-print(np.power(10, 2))
-
-# y_ = y
-init = tf.global_variables_initializer()
-
-with tf.Session() as sess:
-    sess.run(init)
-    print('y => ', sess.run(y))
-    print('y_ => ', sess.run(y_))
-    z = tf.log(y)
-    print('tf.log(y) => \n', sess.run(z))
-    cross_entropy = -tf.reduce_sum(y_ * z)
-    print('cross_entropy => \n', sess.run(cross_entropy))
+# # log reduce_sum
+# y = tf.constant(
+#     [np.power(np.e, 2.0), np.power(np.e, 1.3)])  # tf.random_normal([1, 1], mean=0.0, stddev=1.0, dtype=tf.float32)
+# y_ = tf.constant(
+#     [np.power(np.e, 2.3), np.power(np.e, 1.0)])  # tf.random_normal([1, 1], mean=0.0, stddev=1.0, dtype=tf.float32)
+#
+# # print('np.log(np.e)=', np.log(np.e*np.e))
+# print(np.power(10, 2))
+#
+# # y_ = y
+# init = tf.global_variables_initializer()
+#
+# with tf.Session() as sess:
+#     sess.run(init)
+#     print('y => ', sess.run(y))
+#     print('y_ => ', sess.run(y_))
+#     z = tf.log(y)
+#     print('tf.log(y) => \n', sess.run(z))
+#     cross_entropy = -tf.reduce_sum(y_ * z)
+#     print('cross_entropy => \n', sess.run(cross_entropy))
 
 # ----------------------------------------------------------------------
 # matmul 演示
@@ -42,20 +42,19 @@ with tf.Session() as sess:
 
 # ----------------------------------------------------------------------
 # argmax 演示
+#                  [arg = 1]
+x = [[5, 2],  # -> 5(0)
+     [6, 4]]  # -> 6(0)
+# -> 6(1),4(1) [arg = 0]
 
-# x = [[5, 2],
-#      [6, 4]]
-# # -> 6(1),4(1)
-#
-# y = [[8, 2],
-#      [6, 4]]
-# # -> 8(0),4(1)
-#
-# # 最大值的索引值
-# z = np.argmax(x, 0)
-#
-# print(z)
-# # print(np.argmax(y, 0))
+y = [[8, 2],
+     [6, 4]]
+# -> 8(0),4(1)
+
+# 最大值的索引值
+print(np.argmax(x, 0))
+print(np.argmax(x, 1))
+# print(np.argmax(y, 0))
 
 # ----------------------------------------------------------------------
 # # reduce_sum 演示
