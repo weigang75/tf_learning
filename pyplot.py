@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# 参考： http://blog.csdn.net/lilongsy/article/details/72903339
 
 def f(t):
     return np.exp(-t) * np.cos(2 * np.pi * t)
