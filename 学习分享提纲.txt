@@ -1,0 +1,37 @@
+一、机器学习简介
+1、简介
+2、分类
+二、机器学习-神经网络
+1、生物神经网络
+ 	每个人的权重、偏值都不一样，有人对文学感兴趣，有人对音乐感兴趣。。。，对感兴趣的学习的比较快，其他信息都衰减
+2、机器学习神经网络（详细讲解）
+	模拟生物神经网络，但依然和生物无法比较
+	特征提取
+	机器学习后的结果模型，人类都不清楚为什么这样
+
+三、Tensorflow
+1、tf简介
+2、Docker和debian的安装方法
+3、op概念，演示的过程中讲解
+	tf.constant
+	tf.placeholder("float", shape=[None, 784])
+	W = tf.Variable(tf.zeros([784,10]))
+	tf.Session() 是什么？
+	简单的机器算法的例子
+4、数字图片识别和使用（91%）
+
+5、多层卷积网络的softmax回归模型
+	http://www.tensorfly.cn/tfdoc/tutorials/mnist_pros.html
+	1）占位符 
+	2）变量
+	3）类别预测与损失函数
+	现在我们可以实现我们的回归模型了。这只需要一行！我们把向量化后的图片x和权重矩阵W相乘，加上偏置b，然后计算每个分类的softmax概率值。
+	y = tf.nn.softmax(tf.matmul(x,W) + b)
+	4）训练模型
+	GradientDescentOptimizer 和各种优化器的动态图
+	5）评估模型
+	6）构建一个多层卷积网络 
+
+
+
+
