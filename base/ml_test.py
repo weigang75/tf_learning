@@ -50,7 +50,7 @@ sess = tf.Session()
 sess.run(init)
 
 # 拟合平面，开始训练
-for step in range(0, 1000):
+for step in range(0, 2000):
     sess.run(train)
     if step % 200 == 0:
         print(step, sess.run(W), sess.run(b))
