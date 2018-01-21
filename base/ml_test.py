@@ -66,7 +66,7 @@ for step in range(0, np.size(test_input)):
     test_y = sess.run(tf.multiply(result_W, test_x) + result_b)[0]
     loss += np.abs(np.round(test_y - test_output[step], 7))
     if step % 300 == 0:
-        print(step, '预测值 :', test_y, '; 实际值 :', test_output[step], '误差 :', (1 - loss) * 100.0)
+        print(step, '预测值 :', test_y, '; 实际值 :', test_output[step], '; 成功率 :', (1 - loss) * 100.0)
 
-print('误差 :', (1 - loss) * 100.0)
+print('成功率 :', (1 - loss) * 100.0)
 sess.close()
