@@ -6,7 +6,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import funs as f
-
+import ml_model as model
 
 # 获取训练数据
 def get_train(size):
@@ -32,7 +32,10 @@ x_data, y_data = get_train(30000)
 # 构造一个线性模型
 b = tf.Variable(tf.zeros([1]))
 W = tf.Variable(tf.zeros([1]))
-y = tf.multiply(W, x_data) + b
+
+select_model = model.selected_model
+
+y = select_model(x_data, W, b)
 
 # 最小化方差
 loss = tf.reduce_mean(tf.square(y - y_data))
@@ -58,15 +61,19 @@ result_b = sess.run(b)
 # 得出结果
 print('W =', result_W, '; b =', result_b)
 
+test_num = 500
+
+
 # 获取测试数据进行
-test_input, test_output = get_test(3000)
+test_input, test_output = get_test(test_num)
 loss = 0.0
 for step in range(0, np.size(test_input)):
     test_x = test_input[step]
-    test_y = sess.run(tf.multiply(result_W, test_x) + result_b)[0]
+    test_y = sess.run(select_model(test_x, result_W, result_b))[0]
     loss += np.abs(np.round(test_y - test_output[step], 7))
-    if step % 300 == 0:
-        print(step, '预测值 :', test_y, '; 实际值 :', test_output[step], '; 成功率 :', (1 - loss) * 100.0)
+    if step % 100 == 0:
+        print(step, '预测值 :', test_y, '; 实际值 :', test_output[step], '; 误差 : %f' % (loss*100.0/test_num))
 
-print('成功率 :', (1 - loss) * 100.0)
+
+print('最后误差 : %f' % (loss*100.0/test_num))
 sess.close()
