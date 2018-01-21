@@ -9,6 +9,12 @@
 	特征提取
 	机器学习后的结果模型，人类都不清楚为什么这样
 
+https://deeplearning4j.org/compare-dl4j-tensorflow-pytorch
+Keras，Theano，pytorch，caffe
+TensorFlow、Caffe、MXNet、PyTorch
+Comparing Top Deep Learning Frameworks: Deeplearning4j, PyTorch, TensorFlow, Caffe, Keras, MxNet, Gluon & CNTK
+
+
 三、Tensorflow
 1、tf简介
 2、Docker和debian的安装方法
