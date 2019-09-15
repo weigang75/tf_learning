@@ -162,19 +162,18 @@ for i in range(range_num):
     if i % 2000 == 0:  # 为了防止打印图片影响性能，则每隔2000个，打印一下图片
         # 显示标签的 one-hot 向量 及其 数字
         print('[', i, ']->', batch_ys[0], '; 数字=', np.matmul(batch_ys[0], mask).astype(np.uint))
-    if i % (range_num / 2) == 0:
+    if i % (range_num / 4) == 0:
         sta_b = sess.run(b)
         sta_W = sess.run(W)
         sta_W_ = sta_W[300:310, 4:6]  # 因为矩阵太大，截取一部分看看
         print('[', i, ']->', "学习状态b=", sta_b, '\nW=', sta_W_)
 
-        _shape = (70, 112)
-        t = np.reshape(sta_W.T, _shape)  # sta_W.T = (10, 784) -> (70, 112)
+        t = np.reshape(sta_W.T, (70, 112))  # sta_W.T = (10, 784) -> (70, 112)
 
         # t = sta_W.T  # (10, 784)
         # print(np.shape(t))
         show_array(t)
-        show_array(np.reshape(sta_W.T, (112, 70)))
+        # show_array(np.reshape(sta_W.T, (112, 70)))
         # 显示数字的图片
         show_bmp(batch_xs[0])
         # 输入 feed_dict 数据，进行学习
