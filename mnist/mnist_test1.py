@@ -1,3 +1,4 @@
+# coding=utf-8
 from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 import numpy as np
@@ -11,30 +12,9 @@ import time
 # os.environ["TF_CPP_MIN_LOG_LEVEL"] = '1'
 # 只显示 warning 和 Error
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = '2'
-
-
 # 只显示 Error
 # os.environ["TF_CPP_MIN_LOG_LEVEL"] = '3'
 
-# def ImageToMatrix(filename):
-#     # 读取图片
-#     im = Image.open(filename)
-#     # 显示图片
-# #     im.show()  
-#     width,height = im.size
-#     im = im.convert("L") 
-#     data = im.getdata()
-#     data = np.matrix(data,dtype="float")/255.0
-#     #new_data = np.reshape(data,(width,height))
-#     new_data = np.reshape(data,(height,width))
-#     return new_data
-#     new_im = Image.fromarray(new_data)
-#     # 显示图片
-#     new_im.show()
-# def MatrixToImage(data):
-#     data = data*255
-#     new_im = Image.fromarray(data.astype(np.uint8))
-#     return new_im
 
 def auto_norm(data):  # 传入一个矩阵
     mins = data.min(0)  # 返回data矩阵中每一列中最小的元素，返回一个列表
@@ -116,6 +96,7 @@ def show_loge(val):
 # 所以在此教程中，数字n将表示成一个只有在第n维度（从0开始）数字为1的10维向量。比如，标签0将表示成([1,0,0,0,0,0,0,0,0,0])。
 mnist = input_data.read_data_sets('MNIST_data', one_hot=True)
 
+# 记录开始时间
 start_time = time.time()
 
 # x不是一个特定的值，而是一个占位符placeholder，我们在TensorFlow运行计算时输入这个值。
@@ -186,7 +167,14 @@ for i in range(range_num):
         sta_W = sess.run(W)
         sta_W_ = sta_W[300:310, 4:6]  # 因为矩阵太大，截取一部分看看
         print('[', i, ']->', "学习状态b=", sta_b, '\nW=', sta_W_)
-        show_array(sta_W.T)
+
+        _shape = (70, 112)
+        t = np.reshape(sta_W.T, _shape)  # sta_W.T = (10, 784) -> (70, 112)
+
+        # t = sta_W.T  # (10, 784)
+        # print(np.shape(t))
+        show_array(t)
+        show_array(np.reshape(sta_W.T, (112, 70)))
         # 显示数字的图片
         show_bmp(batch_xs[0])
         # 输入 feed_dict 数据，进行学习
