@@ -44,7 +44,7 @@ def show_array(a, title=''):
 
 
 # 显示图片
-def show_bmp(im_arr):
+def show_bmp(im_arr, title=''):
     # 参考：http://blog.csdn.net/u010194274/article/details/50817999
     im = np.array(im_arr)
     im = im.reshape(28, 28)
@@ -53,6 +53,7 @@ def show_bmp(im_arr):
     # plotwindow = fig.add_subplot(111)
 
     plt.imshow(im, cmap='gray')
+    plt.title(title, fontproperties=font_set)
     plt.show()
 
 
@@ -168,24 +169,25 @@ for i in range(range_num):
 
     if i % (range_num / 4) == 0 or i >= range_num - 1 or i < 4:
         # 显示标签的 one-hot 向量 及其 数字
-        print('[', i, ']->', batch_ys[0], '; 数字=', np.matmul(batch_ys[0], mask).astype(np.uint))
+        num = np.matmul(batch_ys[0], mask).astype(np.uint)
+        print('[', i, ']->', batch_ys[0], '; 数字=', num)
         sta_b = sess.run(b)
         sta_W = sess.run(W)
         sta_W_ = sta_W[300:310, 4:6]  # 因为矩阵太大，截取一部分看看
         print('[', i, ']->', "学习状态b=", sta_b, '\nW=', sta_W_)
         b_ = np.expand_dims(sta_b.T, axis=1)  # np.expand_dims(a) numpy的升维, np.squeeze(a) numpy的降维
-        show_array(b_, 'b 矩阵图')
+        show_array(b_, 'b 矩阵图[' + str(i) + ']')
         # t = np.reshape(sta_W.T, (70, 112))  # sta_W.T = (10, 784) -> (70, 112)
         # show_array(np.reshape(sta_W.T, (70, 112)))
         # t = np.reshape(sta_W.T, (140, 56))
         # show_array(np.reshape(sta_W.T, (140, 56)))
-        show_array(np.reshape(sta_W.T, (280, 28)), 'W 矩阵图')
+        show_array(np.reshape(sta_W.T, (280, 28)), 'W 矩阵图[' + str(i) + ']')
         # t = sta_W.T  # (10, 784)
         # print(np.shape(t))
         # show_array(t)
         # show_array(np.reshape(sta_W.T, (112, 70)))
         # 显示数字的图片
-        show_bmp(batch_xs[0])
+        show_bmp(batch_xs[0], '数字' + str(num))
         # 输入 feed_dict 数据，进行学习
     sess.run(train_step, feed_dict={input_images: batch_xs, input_labels: batch_ys})
 
