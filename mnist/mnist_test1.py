@@ -1,8 +1,9 @@
-# coding=utf-8
+# -- coding:utf-8 --
 from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
 import PIL.Image as Image
 # Just disables the warning, doesn't enable AVX/FMA
 import os
@@ -12,6 +13,10 @@ import time
 # os.environ["TF_CPP_MIN_LOG_LEVEL"] = '1'
 # 只显示 warning 和 Error
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = '2'
+
+font_set = FontProperties(fname=r"c:\windows\fonts\simsun.ttc", size=12)
+
+
 # 只显示 Error
 # os.environ["TF_CPP_MIN_LOG_LEVEL"] = '3'
 
@@ -27,14 +32,14 @@ def auto_norm(data):  # 传入一个矩阵
     return normData
 
 
-def show_array(a):
+def show_array(a, title=''):
     # 获取矩阵中最大值和最小值
     _max, _min = find_max_min_value(a)
     if _max == _min:
         plt.imshow(np.uint8(a))
     else:  # 如果最大值和最小值不相等，则需要归一化（0-1之间），并且*255(0-255之间)
         plt.imshow(auto_norm(a) * 255)
-
+    plt.title(title, fontproperties=font_set)
     plt.show()
 
 
@@ -159,20 +164,25 @@ mask = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 range_num = 10000
 for i in range(range_num):
     batch_xs, batch_ys = mnist.train.next_batch(100)
-    if i % 2000 == 0:  # 为了防止打印图片影响性能，则每隔2000个，打印一下图片
+    # if i % 2000 == 0:  # 为了防止打印图片影响性能，则每隔2000个，打印一下图片
+
+    if i % (range_num / 4) == 0 or i >= range_num - 1 or i < 4:
         # 显示标签的 one-hot 向量 及其 数字
         print('[', i, ']->', batch_ys[0], '; 数字=', np.matmul(batch_ys[0], mask).astype(np.uint))
-    if i % (range_num / 4) == 0:
         sta_b = sess.run(b)
         sta_W = sess.run(W)
         sta_W_ = sta_W[300:310, 4:6]  # 因为矩阵太大，截取一部分看看
         print('[', i, ']->', "学习状态b=", sta_b, '\nW=', sta_W_)
-
-        t = np.reshape(sta_W.T, (70, 112))  # sta_W.T = (10, 784) -> (70, 112)
-
+        b_ = np.expand_dims(sta_b.T, axis=1)  # np.expand_dims(a) numpy的升维, np.squeeze(a) numpy的降维
+        show_array(b_, 'b 矩阵图')
+        # t = np.reshape(sta_W.T, (70, 112))  # sta_W.T = (10, 784) -> (70, 112)
+        # show_array(np.reshape(sta_W.T, (70, 112)))
+        # t = np.reshape(sta_W.T, (140, 56))
+        # show_array(np.reshape(sta_W.T, (140, 56)))
+        show_array(np.reshape(sta_W.T, (280, 28)), 'W 矩阵图')
         # t = sta_W.T  # (10, 784)
         # print(np.shape(t))
-        show_array(t)
+        # show_array(t)
         # show_array(np.reshape(sta_W.T, (112, 70)))
         # 显示数字的图片
         show_bmp(batch_xs[0])
